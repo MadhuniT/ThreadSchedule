@@ -43,7 +43,7 @@ public class TestServiceForThreadApis {
         var request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(host + pathname ))
-                .header("Authorization","pk_54940047_13AXH5ABVIY67BBLHYUMXYAJPSS6RTJM" )
+                .header("Authorization","pk_54940047_B2PMRHB8BSMFLT1HZRU6E4L97I8RS2UA" )
                 .build();
 
         var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
