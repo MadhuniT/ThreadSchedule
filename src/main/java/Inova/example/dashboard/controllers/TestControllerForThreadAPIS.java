@@ -20,7 +20,7 @@ public class TestControllerForThreadAPIS {
         return testServiceForThreadApis.authentication(user);
     }
 
-    @GetMapping("/Thread-api1")
+    @PostMapping("/Thread-api1")
     public WorkerTable test1() throws IOException, InterruptedException{
         WorkerTable result= testServiceForThreadApis.getWorkers();
         return result;
