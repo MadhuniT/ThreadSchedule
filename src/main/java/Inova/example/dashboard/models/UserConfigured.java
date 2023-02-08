@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserConfigured {
-    private  String username="madhuni.tharukshi@inovaitsys.com";
-    private  String password="(Udemy)@?!M";
+    private  String username="api.clickup@inovaitsys.com";
+    private  String password="Api.clickup@inova";
 }
 
 

@@ -35,22 +35,20 @@ public class TestServiceForThreadApis {
     @Value("${recaptchaV3}")
     private  String  recaptchaV3;
 
-    public WorkerTable getWorkers() throws IOException, InterruptedException {
-
+    public WorkerTable getWorkers(String token) throws IOException, InterruptedException {
         var httpClient = HttpClient.newBuilder().build();
         var host = "https://api.clickup.com";
         var pathname = "/api/v2/user";
         var request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(host + pathname ))
-                .header("Authorization","pk_54940047_B2PMRHB8BSMFLT1HZRU6E4L97I8RS2UA" )
+                .header("Authorization",token.toString())
                 .build();
 
         var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
         Gson gson = new Gson();
         Workers workers = gson.fromJson(response.body(), Workers.class);
-
+        System.out.println(workers);
         WorkerTable user=new WorkerTable();
         user.setName(workers.getUser().getUsername());
         user.setEmail(workers.getUser().getEmail());
