@@ -7,6 +7,7 @@ import Inova.example.dashboard.repositories.WorkerRepository;
 import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mortbay.log.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -30,12 +31,14 @@ import java.util.stream.Collectors;
 public class TestServiceForThreadApis {
     @Autowired
     WorkerRepository testRepository;
+    @Autowired
+    Gson gson;
     @Value("${include_teams}")
     private  String include_teams;
     @Value("${recaptchaV3}")
     private  String  recaptchaV3;
 
-    public WorkerTable getWorkers(String token) throws IOException, InterruptedException {
+    public WorkerTable saveWorkers(String token) throws IOException, InterruptedException {
         var httpClient = HttpClient.newBuilder().build();
         var host = "https://api.clickup.com";
         var pathname = "/api/v2/user";
@@ -46,15 +49,15 @@ public class TestServiceForThreadApis {
                 .build();
 
         var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        Gson gson = new Gson();
+
         Workers workers = gson.fromJson(response.body(), Workers.class);
-        System.out.println(workers);
         WorkerTable user=new WorkerTable();
+
         user.setName(workers.getUser().getUsername());
         user.setEmail(workers.getUser().getEmail());
-        WorkerTable usernew=testRepository.saveAndFlush(user);
+        WorkerTable workerNew=testRepository.saveAndFlush(user);
 
-        return usernew;
+        return workerNew;
     }
 
     public String authentication(UserConfigured user) throws IOException, InterruptedException, JSONException {
